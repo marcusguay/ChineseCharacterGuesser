@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ChineseCharacterGuesser/static/css/main.75007e03.css",
+    "main.js": "/ChineseCharacterGuesser/static/js/main.d042df47.js",
+    "static/js/651.a543a249.chunk.js": "/ChineseCharacterGuesser/static/js/651.a543a249.chunk.js",
+    "index.html": "/ChineseCharacterGuesser/index.html",
+    "main.75007e03.css.map": "/ChineseCharacterGuesser/static/css/main.75007e03.css.map",
+    "main.d042df47.js.map": "/ChineseCharacterGuesser/static/js/main.d042df47.js.map",
+    "651.a543a249.chunk.js.map": "/ChineseCharacterGuesser/static/js/651.a543a249.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.75007e03.css",
+    "static/js/main.d042df47.js"
+  ]
+}
