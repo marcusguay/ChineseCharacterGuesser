@@ -47,13 +47,13 @@ this.loadModel();
 async loadModel(){
 
 
-  const response = await fetch('/GetCharData');
+  const response = await fetch('https://chinese-character-server.onrender.com/GetCharData');
   const json = await response.json();
   charArray = json['array'];
 
 
   if(!model) 
-    model = await tf.loadLayersModel('model.json');
+    model = await tf.loadLayersModel('https://chinese-character-server.onrender.com/model.json');
   }
 
 
@@ -94,7 +94,7 @@ async loadModel(){
       });
 
           var int = 0;
-          var Request = '/CharSearch/?char='
+          var Request = 'https://chinese-character-server.onrender.com/CharSearch/?char='
       array.forEach( async element =>{
         const character = charArray[element];
         console.log(character);  
