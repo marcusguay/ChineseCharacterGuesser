@@ -53,7 +53,7 @@ async loadModel(){
 
 
   if(!model) 
-    model = await tf.loadLayersModel('model.json');
+    model = await tf.loadLayersModel('https://chinese-character-server.onrender.com/model.json');
   }
 
 
