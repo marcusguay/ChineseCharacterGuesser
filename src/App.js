@@ -42,7 +42,7 @@ var alreadyLoaded = false;
 
 
   componentDidMount() {
-    //this.loadModel();
+    this.loadModel();
   }
 
 
