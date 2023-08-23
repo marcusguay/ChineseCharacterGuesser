@@ -9,12 +9,16 @@ import { Color } from "paper/dist/paper-core";
 import { Container } from "@mui/material";
 import * as tf from '@tensorflow/tfjs'
 import '@tensorflow/tfjs-backend-webgl';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 console.log(tf.version);
 var model = null;
 var charArray = null;
 var pArray = [];
 var ready = true;
+var alreadyLoaded = false;
 
 
 
@@ -27,9 +31,10 @@ var ready = true;
   super(props);
   this.state = {
      panelArray : [],
+     modelOne : null
   }
 
-this.loadModel();
+
 
  }
 
@@ -37,7 +42,7 @@ this.loadModel();
 
 
   componentDidMount() {
-    
+    //this.loadModel();
   }
 
 
@@ -52,8 +57,11 @@ async loadModel(){
   charArray = json['array'];
 
 
-  if(!model) 
+  if(!model && !alreadyLoaded) 
     model = await tf.loadLayersModel('https://tensorflowjsmodel.b-cdn.net/model.json');
+    console.log(model);
+    this.setState({ modelOne: model });
+    alreadyLoaded = true;
   }
 
 
@@ -75,7 +83,6 @@ async loadModel(){
       tf.engine().startScope()
      const tensor = tf.browser.fromPixels (file, 1).expandDims();
      var predictions = await model.predict(tensor);
-    
      predictions = predictions.reshape([7186]);
      var array = await predictions.data();
       var i = 0;
@@ -93,6 +100,8 @@ async loadModel(){
         return map[i];
       });
 
+      console.log("finished predictions");
+
           var int = 0;
           var Request = 'https://chinese-character-server.onrender.com/CharSearch/?char='
       array.forEach( async element =>{
@@ -109,10 +118,11 @@ async loadModel(){
       pArray = str;
       this.sendData();
       
-       ready = true;
+        
       tf.engine().endScope();
-
+      ready = true;
     } else {
+      this.setState({ modelOne: null });
       console.error("model not loaded");
    }
  }
@@ -120,7 +130,17 @@ async loadModel(){
 
 
   render(){
-   
+     
+    if(!model)
+    return (
+      <Box sx={{display:'center', backgroundColor : "#30475E", height : "100vh", justifyContent: 'center' }  }>
+        <div style={{padding: 250}}> 
+        <Typography variant="h4" paddingBottom={1} color={"White"}> Loading model </Typography>
+        <div style={{paddingLeft: 85}}> <CircularProgress />  </div></div>
+      </Box>
+    );
+       
+    
 
    return ( 
    <div className= "MyApp" style={{ display: "flex", backgroundColor: "#30475E"}}> 

@@ -119,7 +119,7 @@ a neural network will try to predict it. Predictions will show up in the "Predic
  </Typography>
 
  <Typography style={{padding : "20px"}} variant="body1" color={"white"}> Predictions are done client side in the browser using tensorflowjs
- </Typography>
+ (If the predictions are slow consider turning on browser acceleration)</Typography>
 
 <Typography style={{padding : "20px"}} variant="body1" color={"white"}> The neural network was trained on 7186 
 characters from the CASIA-HWDB dataset which can be found at:
