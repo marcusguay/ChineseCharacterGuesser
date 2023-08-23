@@ -1,6 +1,7 @@
 import Canvas from "./Canvas";
 import './App.css'
 import { Component, useRef } from "react";
+import {ImageBackground} from 'react';
 import CustomPanel from "./CustomPanel"
 import Panel from "./CustomPanel";
 import React from 'react'
@@ -21,6 +22,9 @@ var ready = true;
 var alreadyLoaded = false;
 
 
+const delay = ms => new Promise(
+  resolve => setTimeout(resolve, ms)
+);
 
 
 
@@ -38,13 +42,12 @@ var alreadyLoaded = false;
 
  }
 
-  childRef= React.createRef();
-
+  childRef= React.createRef()
+ 
 
   componentDidMount() {
     this.loadModel();
   }
-
 
 
 
@@ -78,7 +81,12 @@ async loadModel(){
  async ServerRequest(file){
   
     if(model && ready){
+      this.childRef.current.loading(true);
+      this.setState({modelOne : model})
+      await delay(100);
       ready = false;
+  
+
       // Make sure tensors are freed from memory
       tf.engine().startScope()
      const tensor = tf.browser.fromPixels (file, 1).expandDims();
@@ -121,6 +129,7 @@ async loadModel(){
         
       tf.engine().endScope();
       ready = true;
+      this.childRef.current.loading(false);
     } else {
       this.setState({ modelOne: null });
       console.error("model not loaded");
@@ -133,15 +142,14 @@ async loadModel(){
      
     if(!model)
     return (
-      <Box sx={{display:'center', backgroundColor : "#30475E", height : "100vh", justifyContent: 'center' }  }>
+      <Box sx={{display:'center', opacity : 0.25, backgroundColor : "#30475E", height : "100vh", justifyContent: 'center' }  }>
         <div style={{padding: 250}}> 
         <Typography variant="h4" paddingBottom={1} color={"White"}> Loading model </Typography>
         <div style={{paddingLeft: 85}}> <CircularProgress />  </div></div>
       </Box>
     );
-       
-    
 
+       
    return ( 
    <div className= "MyApp" style={{ display: "flex", backgroundColor: "#30475E"}}> 
    <Container  > <Canvas props = {this.ServerRequest.bind(this)}  

@@ -5,6 +5,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import { Size, Style } from "paper/dist/paper-core";
 import Canvas from "./Canvas";
 import { Tabs } from "@mui/material";
@@ -23,18 +24,22 @@ const styles = {
 }
 
 
-
-
 const CustomPanel = forwardRef(({props},ref)=>{
 
   const [textData,setTextData] = useState("0");
   const [value,setValue] = useState(0);
+  var [predicting,setPredict] = useState(false);
   var array = props;
-   
+
+
    useImperativeHandle(ref, () => ({
      setData: (k) => {
        setTextData(props);
+     },
+     loading:(bool) =>{
+     setPredict(bool)
      }
+     
   }));
 
  const ExtractInfo = (info) =>{
@@ -59,8 +64,20 @@ const CustomPanel = forwardRef(({props},ref)=>{
    
    
    const GetTextChildren =(props) =>{
+
+
+         if(predicting)
+         return <div style={{padding: 10}}> 
+         <Typography variant="h4" paddingBottom={1} color={"White"}> Predicting... </Typography>
+         <div style={{paddingLeft: 0}}> <CircularProgress />  </div></div>
+
       if(props.length == 0){
+        if(!predicting)
       return  <Typography variant="h5" color={"white"}> Predictions will show up here :</Typography>
+      
+
+     
+
       }
 
      var array = props;
