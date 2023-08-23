@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ChineseCharacterGuesser/static/css/main.75007e03.css",
-    "main.js": "/ChineseCharacterGuesser/static/js/main.766147c3.js",
+    "main.js": "/ChineseCharacterGuesser/static/js/main.0bc57d5a.js",
     "static/js/787.28cb0dcd.chunk.js": "/ChineseCharacterGuesser/static/js/787.28cb0dcd.chunk.js",
     "index.html": "/ChineseCharacterGuesser/index.html",
     "main.75007e03.css.map": "/ChineseCharacterGuesser/static/css/main.75007e03.css.map",
-    "main.766147c3.js.map": "/ChineseCharacterGuesser/static/js/main.766147c3.js.map",
+    "main.0bc57d5a.js.map": "/ChineseCharacterGuesser/static/js/main.0bc57d5a.js.map",
     "787.28cb0dcd.chunk.js.map": "/ChineseCharacterGuesser/static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.75007e03.css",
-    "static/js/main.766147c3.js"
+    "static/js/main.0bc57d5a.js"
   ]
 }
