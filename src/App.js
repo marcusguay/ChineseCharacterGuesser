@@ -80,7 +80,8 @@ async loadModel(){
 
  async ServerRequest(file){
   
-    if(model && ready){
+    if(model){
+      if(ready){
       this.childRef.current.loading(true);
       this.setState({modelOne : model})
       await delay(100);
@@ -130,6 +131,7 @@ async loadModel(){
       tf.engine().endScope();
       ready = true;
       this.childRef.current.loading(false);
+     }
     } else {
       this.setState({ modelOne: null });
       console.error("model not loaded");

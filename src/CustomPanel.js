@@ -121,6 +121,7 @@ return (<Container style = {styles.container}>
  <Box sx={{ borderBottom: 1, borderColor: 'white' }}>
  <Tabs  value = {value} aria-label="example" onChange={handleChange}>
 <Tab label={<span style={{ color: 'white', fontSize: '20px'}}>Predict</span>}> </Tab>
+<Tab label={<span style={{ color: 'white', fontSize: '20px'}}>Search</span>}> </Tab>
 <Tab label={<span style={{ color: 'white', fontSize: '20px'}}>About</span>}> </Tab>
  </Tabs>
  </Box>
@@ -128,7 +129,12 @@ return (<Container style = {styles.container}>
 <TabPanel value= {value} index = {0}>
 {GetTextChildren(props)}
 </TabPanel>
+
 <TabPanel value= {value} index = {1}>
+{GetTextChildren(props)}
+</TabPanel>
+
+<TabPanel value= {value} index = {2}>
 <Box style = {{backgroundColor : "#30475E", borderRadius: '15px', padding: "10px"}}> 
 
 <Typography style={{padding : "20px"}} variant="body1" color={"white"}> Draw a Chinese character in the canvas and after pressing the "predict" button 

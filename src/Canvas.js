@@ -139,6 +139,9 @@ function editPixels(data) {
  
  return ( <div style={{ display: "flex" }}> <canvas 
      onMouseDown = {drawStart}
+     onTouchStart={ drawStart}
+     onTouchEnd={drawEnd}
+     onTouchMove={draw}
      onMouseUp = {drawEnd}
      onMouseMove = {draw}
      onMouseLeave = {() => {isDrawing = false;}}
