@@ -95,6 +95,7 @@ function editPixels(data) {
 
    // bound to mouse click
     const drawStart = ({nativeEvent}) => { 
+        console.log("click");
         const {offsetX, offsetY} = nativeEvent;
         pathRef.current.beginPath();
         pathRef.current.moveTo(offsetX,offsetY);
@@ -105,6 +106,7 @@ function editPixels(data) {
 
     // bound to mouse release
     const drawEnd = () => { 
+      console.log("end");
         pathRef.current.closePath();
         isDrawing = false;
     }
@@ -113,15 +115,45 @@ function editPixels(data) {
 
     // bound to mouse move
     const draw = ({nativeEvent}) => {
-    
+      
      if(!isDrawing) {
       return 
       }
-
+        
         const {offsetX, offsetY} = nativeEvent;
+        console.log(offsetX);
         pathRef.current.lineTo(offsetX, offsetY);
         pathRef.current.stroke();
      }
+        
+       // bound to mouse click
+    const mobileDrawStart = ({nativeEvent}) => { 
+      console.log("click");
+      const {offsetX, offsetY} = nativeEvent;
+      pathRef.current.beginPath();
+      pathRef.current.moveTo(nativeEvent.touches[0].clientX + 90 , nativeEvent.touches[0].clientY - 75);
+      prevRefArray.push(getPrevImageData());
+      isDrawing = true;
+  }
+
+
+  // bound to mouse release
+  const mobileDrawEnd = () => { 
+    console.log("end");
+      pathRef.current.closePath();
+      isDrawing = false;
+  }
+
+
+     const mobileDraw = ({nativeEvent}) => {
+      
+      if(!isDrawing) {
+       return 
+       }
+         const {offsetX, offsetY} = nativeEvent;
+         pathRef.current.lineTo(nativeEvent.touches[0].clientX + 90 , nativeEvent.touches[0].clientY - 75);
+         pathRef.current.stroke();
+      }
 
 
      const undo = () =>{
@@ -139,9 +171,9 @@ function editPixels(data) {
  
  return ( <div style={{ display: "flex" }}> <canvas 
      onMouseDown = {drawStart}
-     onTouchStart={ drawStart}
-     onTouchEnd={drawEnd}
-     onTouchMove={draw}
+     onTouchStart={ mobileDrawStart}
+     onTouchEnd={mobileDrawEnd}
+     onTouchMove={mobileDraw}
      onMouseUp = {drawEnd}
      onMouseMove = {draw}
      onMouseLeave = {() => {isDrawing = false;}}
