@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/ChineseCharacterGuesser/static/css/main.75007e03.css",
-    "main.js": "/ChineseCharacterGuesser/static/js/main.63f20786.js",
-    "static/js/787.28cb0dcd.chunk.js": "/ChineseCharacterGuesser/static/js/787.28cb0dcd.chunk.js",
+    "main.css": "/ChineseCharacterGuesser/static/css/main.b5e2cccc.css",
+    "main.js": "/ChineseCharacterGuesser/static/js/main.3830f02b.js",
+    "static/js/453.68693753.chunk.js": "/ChineseCharacterGuesser/static/js/453.68693753.chunk.js",
     "index.html": "/ChineseCharacterGuesser/index.html",
-    "main.75007e03.css.map": "/ChineseCharacterGuesser/static/css/main.75007e03.css.map",
-    "main.63f20786.js.map": "/ChineseCharacterGuesser/static/js/main.63f20786.js.map",
-    "787.28cb0dcd.chunk.js.map": "/ChineseCharacterGuesser/static/js/787.28cb0dcd.chunk.js.map"
+    "main.b5e2cccc.css.map": "/ChineseCharacterGuesser/static/css/main.b5e2cccc.css.map",
+    "main.3830f02b.js.map": "/ChineseCharacterGuesser/static/js/main.3830f02b.js.map",
+    "453.68693753.chunk.js.map": "/ChineseCharacterGuesser/static/js/453.68693753.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.75007e03.css",
-    "static/js/main.63f20786.js"
+    "static/css/main.b5e2cccc.css",
+    "static/js/main.3830f02b.js"
   ]
 }
