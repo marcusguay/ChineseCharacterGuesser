@@ -6,8 +6,6 @@ import React, {
 } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -15,13 +13,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import ClearIcon from "@mui/icons-material/Clear";
-
-import { Size, Style } from "paper/dist/paper-core";
-import Canvas from "./Canvas";
 import InputBase from "@mui/material/InputBase";
 import { Tabs } from "@mui/material";
 import Link from "@mui/material/Link";
-import { useRef, useLayoutEffect } from "react";
 import Button from "@mui/material/Button";
 import Controller from "../controllers/Controller";
 import { pinyinFormat } from "pinyin-format";
@@ -45,13 +39,14 @@ const CustomPanel = function ({ props }) {
   var [queryData, setQueryData] = useState([]);
   var [textData, setTextData] = useState("");
   const [value, setValue] = useState(0);
-  var [loading, setLoading] = useState(false);
+  var [ready, setReady] = useState(false);
   const [cursorStart, setCursorStart] = useState(0);
   const controller = props.controller;
 
   controller.setCustomPanelCallback(() => {
     setCharData(controller.getCharData());
     setQueryData(controller.getQueryData());
+    setReady(controller.isLoaded());
   });
 
   const renderInfoTab = (props) => {
@@ -104,7 +99,7 @@ const CustomPanel = function ({ props }) {
             {" "}
             http://hanzidb.org/character-list/general-standard{" "}
           </Link>{" "}
-          and the dataset for the words can be found at:
+          and the dataset for the vocabulary can be found at:
           <Link
             href="https://www.mdbg.net/chinese/dictionary?page=cc-cedict"
             target="_blank"
@@ -269,6 +264,38 @@ const CustomPanel = function ({ props }) {
       </div>
     );
   }
+
+  if (!ready)
+    return (
+      <Box
+        sx={{
+          display: "center",
+          opacity: 1,
+          backgroundColor: "#30475E",
+          width: "50vw",
+          height: "100vh",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "center",
+            paddingLeft: "10vw",
+            paddingTop: 250,
+            width: "50vw",
+          }}
+        >
+          <Typography variant="h4" paddingBottom={1} color={"White"}>
+            {" "}
+            Loading model{" "}
+          </Typography>
+          <div style={{ paddingLeft: 85 }}>
+            {" "}
+            <CircularProgress />{" "}
+          </div>
+        </div>
+      </Box>
+    );
 
   return (
     <Container style={styles.container}>

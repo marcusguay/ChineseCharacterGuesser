@@ -5,30 +5,35 @@ import { Component } from "react";
 var model = new Model();
 
 var updateCustomPanel = null;
-var updatePanel = null;
 
-class Controller extends Component {
+class Controller {
   constructor() {
-    super();
-    this.state = {
-      ready: true,
-      charData: [],
-      updatePanel: null,
-      queryResults: [],
-    };
+    this.loaded = false;
+    this.ready = false;
+    this.charData = [];
+    this.queryResults = [];
+
+    this.createModel();
+  }
+
+  async createModel() {
+    var promises = [model.loadCharMapping(), model.loadModel()];
+    await Promise.all(promises);
+    console.log("model done loading");
+    this.ready = true;
+    this.loaded = true;
+
+    if (updateCustomPanel) {
+      updateCustomPanel();
+    }
   }
 
   async predictionRequest(file) {
-    if (!this.state.ready) {
+    if (!this.ready) {
       return;
     }
 
-    this.state = {
-      ready: true,
-      charData: this.state.charData,
-      updatePanel: this.state.updatePanel,
-      queryResults: this.state.queryResults,
-    };
+    this.ready = false;
 
     var charArray = [];
 
@@ -43,12 +48,8 @@ class Controller extends Component {
         console.log(model.applyMapping(arr));
       }
 
-      this.state = {
-        ready: true,
-        charData: charArray,
-        updatePanel: this.state.updatePanel,
-        queryResults: this.state.queryResults,
-      };
+      this.charData = charArray;
+      this.ready = true;
 
       if (updateCustomPanel) {
         updateCustomPanel();
@@ -61,12 +62,7 @@ class Controller extends Component {
   async query(str) {
     var response = null;
 
-    this.state = {
-      ready: false,
-      charData: this.state.charData,
-      updatePanel: this.state.updatePanel,
-      queryResults: response,
-    };
+    this.ready = false;
 
     try {
       response = await RequestController.serverQuery(str);
@@ -79,12 +75,8 @@ class Controller extends Component {
       console.log(e);
     }
 
-    this.state = {
-      ready: true,
-      charData: this.state.charData,
-      updatePanel: this.state.updatePanel,
-      queryResults: response,
-    };
+    this.ready = true;
+    this.queryResults = response;
 
     if (updateCustomPanel) {
       updateCustomPanel();
@@ -92,19 +84,19 @@ class Controller extends Component {
   }
 
   getCharData() {
-    return this.state.charData;
+    return this.charData;
   }
 
   getQueryData() {
-    return this.state.queryResults;
-  }
-
-  setPanelCallback(fn) {
-    updatePanel = fn;
+    return this.queryResults;
   }
 
   setCustomPanelCallback(fn) {
     updateCustomPanel = fn;
+  }
+
+  isLoaded() {
+    return this.loaded;
   }
 }
 

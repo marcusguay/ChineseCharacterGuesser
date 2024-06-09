@@ -10,9 +10,6 @@ class Model {
       charMapping: null,
       modelLoaded: false,
     };
-
-    this.loadCharMapping();
-    this.loadModel();
   }
 
   async loadCharMapping() {

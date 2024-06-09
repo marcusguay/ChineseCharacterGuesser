@@ -6,7 +6,6 @@ import React from "react";
 import { Container } from "@mui/material";
 import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-backend-webgl";
-import Model from "./model/Model";
 import Controller from "./controllers/Controller";
 
 console.log(tf.version);
