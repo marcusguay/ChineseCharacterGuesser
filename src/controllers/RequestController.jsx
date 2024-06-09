@@ -1,7 +1,8 @@
 import { string } from "@tensorflow/tfjs";
 import React from "react";
 
-const serverPath = "https://chinese-character-server.onrender.com/";
+
+const serverPath = "https://p01--chinesecharacterguesser--dcvsv2cpvvf9.code.run/";
 
 const RequestController = {
   loadCharData: loadCharData,

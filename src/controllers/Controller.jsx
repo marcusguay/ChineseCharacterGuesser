@@ -6,22 +6,20 @@ var model = new Model();
 
 var updateCustomPanel = null;
 
+
 class Controller {
   constructor() {
-    this.loaded = false;
     this.ready = false;
     this.charData = [];
     this.queryResults = [];
-
     this.createModel();
   }
 
+ 
   async createModel() {
-    var promises = [model.loadCharMapping(), model.loadModel()];
-    await Promise.all(promises);
+    await model.loadModel()
     console.log("model done loading");
     this.ready = true;
-    this.loaded = true;
 
     if (updateCustomPanel) {
       updateCustomPanel();
@@ -29,6 +27,7 @@ class Controller {
   }
 
   async predictionRequest(file) {
+
     if (!this.ready) {
       return;
     }
@@ -70,13 +69,18 @@ class Controller {
       if (response.length == 0) {
         response = "Sorry, no results found for " + str;
       }
+
+      this.queryResults = response;
+
     } catch (e) {
       response = e;
       console.log(e);
+      this.queryResults = "Error: could not fetch";
+     
     }
 
     this.ready = true;
-    this.queryResults = response;
+    
 
     if (updateCustomPanel) {
       updateCustomPanel();
@@ -95,8 +99,8 @@ class Controller {
     updateCustomPanel = fn;
   }
 
-  isLoaded() {
-    return this.loaded;
+  isReady() {
+    return this.ready;
   }
 }
 

@@ -3,29 +3,17 @@ import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-backend-webgl";
 import RequestController from "../controllers/RequestController";
 
+
+var charJson = require("./chinesechars.json");
+
 class Model {
   constructor() {
     this.state = {
       model: null,
-      charMapping: null,
+      charMapping: charJson.array,
       modelLoaded: false,
     };
-  }
-
-  async loadCharMapping() {
-    try {
-      const req = await RequestController.loadCharData();
-      console.log("mapping loaded");
-      const mapping = await req.json();
-      console.log(mapping);
-      this.state = {
-        model: this.state.model,
-        charMapping: mapping,
-        modelLoaded: this.state.modelLoaded,
-      };
-    } catch (e) {
-      console.log(e);
-    }
+    console.log(charJson);
   }
 
   async loadModel() {
@@ -38,9 +26,7 @@ class Model {
         charMapping: this.state.charMapping,
         modelLoaded: true,
       };
-      console.log("done loading model");
-      console.log(newModel);
-      console.log(newModel.summary());
+      console.log("Done loading model");
     } catch (e) {
       console.log(e);
     }
@@ -86,6 +72,10 @@ class Model {
 
   isModelLoaded() {
     return this.state.modelLoaded;
+  }
+
+  hasMapping(){
+    return this.state.charMapping != null;
   }
 }
 

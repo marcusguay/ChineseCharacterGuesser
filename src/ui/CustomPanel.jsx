@@ -46,7 +46,7 @@ const CustomPanel = function ({ props }) {
   controller.setCustomPanelCallback(() => {
     setCharData(controller.getCharData());
     setQueryData(controller.getQueryData());
-    setReady(controller.isLoaded());
+    setReady(controller.isReady());
   });
 
   const renderInfoTab = (props) => {
