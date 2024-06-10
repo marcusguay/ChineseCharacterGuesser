@@ -17,6 +17,7 @@ import InputBase from "@mui/material/InputBase";
 import { Tabs } from "@mui/material";
 import Link from "@mui/material/Link";
 import Button from "@mui/material/Button";
+import { View } from "paper/dist/paper-core";
 import Controller from "../controllers/Controller";
 import { pinyinFormat } from "pinyin-format";
 
@@ -116,16 +117,16 @@ const CustomPanel = function ({ props }) {
     var array = props;
     array = array.map((element) => {
       return (
-        <li style={{ margin: 0, padding: 5 }}>
-          <Button
-            onClick={() => {
-              setTextData(textData + element);
-            }}
-            variant="contained"
-            style={{ margin: 0, height: "35px", width: "35px" }}
-          >
-            {element}
-          </Button>
+        <li style={{ margin: 0, maxHeight: "35px", maxWidth: "75px" }}>
+            <Button
+              onClick={() => {
+                setTextData(textData + element);
+              }}
+              variant="contained"
+              style={{ height: "35px", width: "20px" }}
+            >
+              {element}
+            </Button>
         </li>
       );
     });
@@ -135,17 +136,20 @@ const CustomPanel = function ({ props }) {
 
   const renderPredictionResult = (props) => {
     return (
-      <div style={{ margin: 0, padding: 20, maxHeight: "70%" }}>
+      <div style={{ margin: 0, padding: 5, maxHeight: "70%" }}>
         {renderSearchTab({ value: textData })}
         <div style={{ height: 5 }}></div>
         {charData.length == 0 ? (
           <ul
             style={{
               margin: 0,
-              listStyleType: "none",
               display: "flex",
+              listStyleType: "none",
               justifyContent: "flex-start",
               padding: 0,
+              width: "60vw",
+              height: "auto",
+              flexWrap: "wrap",
             }}
           >
             {renderCharCards(sampleArray)}
@@ -156,9 +160,11 @@ const CustomPanel = function ({ props }) {
               margin: 0,
               listStyleType: "none",
               display: "flex",
+              width: "60vw",
+              flexWrap: "wrap",
+              height: "auto",
               justifyContent: "flex-start",
               padding: 0,
-              width: "30vw",
             }}
           >
             {renderCharCards(charData)}

@@ -3,7 +3,6 @@ import * as tf from "@tensorflow/tfjs";
 import "@tensorflow/tfjs-backend-webgl";
 import RequestController from "../controllers/RequestController";
 
-
 var charJson = require("./chinesechars.json");
 
 class Model {
@@ -15,11 +14,13 @@ class Model {
     };
     console.log(charJson);
   }
+  
+
 
   async loadModel() {
     try {
       const newModel = await tf.loadLayersModel(
-        "https://tensorflowjsmodel.b-cdn.net/model.json"
+        "https://chinesecharactermodel.b-cdn.net/large_model/model.json"
       );
       this.state = {
         model: newModel,

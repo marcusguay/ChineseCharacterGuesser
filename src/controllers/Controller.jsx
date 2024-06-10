@@ -6,7 +6,6 @@ var model = new Model();
 
 var updateCustomPanel = null;
 
-
 class Controller {
   constructor() {
     this.ready = false;
@@ -15,9 +14,8 @@ class Controller {
     this.createModel();
   }
 
- 
   async createModel() {
-    await model.loadModel()
+    await model.loadModel();
     console.log("model done loading");
     this.ready = true;
 
@@ -27,25 +25,18 @@ class Controller {
   }
 
   async predictionRequest(file) {
-
-    if (!this.ready) {
+    if (!this.ready || !model.isModelLoaded()) {
       return;
     }
 
     this.ready = false;
-
     var charArray = [];
 
     try {
-      if (!model.isModelLoaded()) {
-        console.log("Server Prediction");
-        charArray = await RequestController.serverPrediction(file);
-      } else {
-        console.log("Local Prediction");
-        const arr = await model.localPrediction(file);
-        charArray = model.applyMapping(arr);
-        console.log(model.applyMapping(arr));
-      }
+      console.log("predicting");
+      const arr = await model.localPrediction(file);
+      charArray = model.applyMapping(arr);
+      console.log(model.applyMapping(arr));
 
       this.charData = charArray;
       this.ready = true;
@@ -71,16 +62,13 @@ class Controller {
       }
 
       this.queryResults = response;
-
     } catch (e) {
       response = e;
       console.log(e);
       this.queryResults = "Error: could not fetch";
-     
     }
 
     this.ready = true;
-    
 
     if (updateCustomPanel) {
       updateCustomPanel();
