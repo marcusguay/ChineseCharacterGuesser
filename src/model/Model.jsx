@@ -15,12 +15,11 @@ class Model {
     console.log(charJson);
   }
   
-
-
+ 
   async loadModel() {
     try {
       const newModel = await tf.loadLayersModel(
-        "https://chinesecharactermodel.b-cdn.net/large_model/model.json"
+        "https://chinesecharactertensorflowjsmodel.s3.us-east-2.amazonaws.com/Model/model.json"
       );
       this.state = {
         model: newModel,
